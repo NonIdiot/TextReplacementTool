@@ -1,0 +1,13 @@
+{
+	"id": "nassoc.textreplacementtool",
+	"name": "Text Replacement Tool",
+	"version": "1.0.0",
+	"hide_version": false,
+	"authors": "NonIdiot",
+	"description": "Allows you to replace most text in the game using the Remix menu.",
+	"requirements": [],
+	"requirements_names": [],
+	"priorities": ["nassoc.ambulantlite","Gamer025.TextRandomizer"],
+	"checksum_override_version": false,
+	"tags": ["Game Mechanics", "Tools", "Downpour", "Watcher"]
+}
