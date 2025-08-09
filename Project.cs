@@ -101,7 +101,7 @@ namespace TextReplacementTool
                     //Logger.Log(LogLevel.Info, "mude "+TextReplacementToolConfig.replacementStringToBeReplaced.Length);
                     string noobert = Regex.Replace(myString, TextReplacementToolConfig.replacementStringToBeReplaced[i].Value, TextReplacementToolConfig.replacementStringToReplaceWith[i].Value, ((!TextReplacementToolConfig.caseSensitiveOverride.Value && TextReplacementToolConfig.replacementBoolCaseSensitive[i].Value) ? RegexOptions.None : RegexOptions.IgnoreCase));
                     //Logger.Log(LogLevel.Info, "flude");
-                    if (stroin(noobert) != stroin(myString) && myString.Length > 1)
+                    if (stroin(noobert) != stroin(myString) && myString.ToCharArray().Length > 1)
                     {
                         myString = noobert;
                         if (TextReplacementToolConfig.replacementBoolStopReplaceAfter[i].Value)
@@ -183,7 +183,6 @@ namespace TextReplacementTool
             Tabs = [
                 new OpTab(this, "Main Page")
             ];
-            Plugin.configInitializedYet = true;
             /*
             if (myOpScrollBox.items != null && myOpScrollBox.items.Count > 0)
             {
@@ -226,26 +225,30 @@ namespace TextReplacementTool
                 //evilOpSlider2,
             ]);
 
-            for (int i = 0; i < 32; i++)
+            if (!Plugin.configInitializedYet)
             {
-                //Plugin.Log(LogLevel.Info, "bbb "+i);
-                //replacementStringToBeReplaced=replacementStringToBeReplaced.AddToArray(Instance.config.Bind("replacementStringToBeReplaced_0","11"));
-                //replacementStringToBeReplaced=replacementStringToBeReplaced.AddToArray(Instance.config.Bind("replacementStringToBeReplaced_1","11"));
-                //Plugin.Log(LogLevel.Info, "ccc "+i);
-                replacementStringToBeReplaced=replacementStringToBeReplaced.AddToArray(Instance.config.Bind("replacementStringToBeReplaced_"+i.ToString(),"toReplace"));
-                Plugin.Log(LogLevel.Info, "ddd1 "+i);
-                replacementStringToReplaceWith=replacementStringToReplaceWith.AddToArray(Instance.config.Bind("replacementStringToReplaceWith_"+i.ToString(),"replacedText"));
-                //Plugin.Log(LogLevel.Info, "ddd2 "+i);
-                replacementBoolCaseSensitive=replacementBoolCaseSensitive.AddToArray(Instance.config.Bind("replacementBoolCaseSensitive_"+i.ToString(),false));
-                //Plugin.Log(LogLevel.Info, "ddd3 "+i);
-                replacementBoolStopReplaceAfter=replacementBoolStopReplaceAfter.AddToArray(Instance.config.Bind("replacementBoolStopReplaceAfter_"+i.ToString(),false));
-                //Plugin.Log(LogLevel.Info, "ddd4 "+i);
-                replacementStringFunnyIDNumber=replacementStringFunnyIDNumber.AddToArray(Instance.config.Bind("replacementStringFunnyIDNumber_"+i.ToString(),"0"));
-                Plugin.Log(LogLevel.Info, "ddd4 "+i);
-                Plugin.Log(LogLevel.Info, "aag "+replacementStringToBeReplaced[replacementStringToBeReplaced.Length-1].key);
-                Plugin.Log(LogLevel.Info, "awg "+replacementStringFunnyIDNumber[replacementStringFunnyIDNumber.Length-1].key);
+                for (int i = 0; i < 32; i++)
+                {
+                    //Plugin.Log(LogLevel.Info, "bbb "+i);
+                    //replacementStringToBeReplaced=replacementStringToBeReplaced.AddToArray(Instance.config.Bind("replacementStringToBeReplaced_0","11"));
+                    //replacementStringToBeReplaced=replacementStringToBeReplaced.AddToArray(Instance.config.Bind("replacementStringToBeReplaced_1","11"));
+                    //Plugin.Log(LogLevel.Info, "ccc "+i);
+                    replacementStringToBeReplaced=replacementStringToBeReplaced.AddToArray(Instance.config.Bind("replacementStringToBeReplaced_"+i.ToString(),"toReplace"));
+                    Plugin.Log(LogLevel.Info, "ddd1 "+i);
+                    replacementStringToReplaceWith=replacementStringToReplaceWith.AddToArray(Instance.config.Bind("replacementStringToReplaceWith_"+i.ToString(),"replacedText"));
+                    //Plugin.Log(LogLevel.Info, "ddd2 "+i);
+                    replacementBoolCaseSensitive=replacementBoolCaseSensitive.AddToArray(Instance.config.Bind("replacementBoolCaseSensitive_"+i.ToString(),false));
+                    //Plugin.Log(LogLevel.Info, "ddd3 "+i);
+                    replacementBoolStopReplaceAfter=replacementBoolStopReplaceAfter.AddToArray(Instance.config.Bind("replacementBoolStopReplaceAfter_"+i.ToString(),false));
+                    //Plugin.Log(LogLevel.Info, "ddd4 "+i);
+                    replacementStringFunnyIDNumber=replacementStringFunnyIDNumber.AddToArray(Instance.config.Bind("replacementStringFunnyIDNumber_"+i.ToString(),"0"));
+                    Plugin.Log(LogLevel.Info, "ddd4 "+i);
+                    Plugin.Log(LogLevel.Info, "aag "+replacementStringToBeReplaced[replacementStringToBeReplaced.Length-1].key);
+                    Plugin.Log(LogLevel.Info, "awg "+replacementStringFunnyIDNumber[replacementStringFunnyIDNumber.Length-1].key);
+                }
+                replacementStringFunnyIDNumber=replacementStringFunnyIDNumber.AddToArray(Instance.config.Bind("replacementStringFunnyIDNumber_32","0"));
+                Plugin.configInitializedYet = true;
             }
-            replacementStringFunnyIDNumber=replacementStringFunnyIDNumber.AddToArray(Instance.config.Bind("replacementStringFunnyIDNumber_32","0"));
             Instance.config.Save();
 
             shouldUpdate = true;
@@ -414,11 +417,11 @@ namespace TextReplacementTool
                         replacementBoolCaseSensitiveInputtables[i].Unload();
                         replacementBoolStopReplaceAfterInputtables[i].Unload();
                     }
-                    replacementStringToBeReplacedInputtables[i] = new OpTextBox(replacementStringToBeReplaced[i], new Vector2(60,330f-i*120f+yOffset), 100f) {cosmetic = true, value=replacementStringToBeReplaced[i].Value, description = ""};
-                    replacementStringToReplaceWithInputtables[i] = new OpTextBox(replacementStringToReplaceWith[i], new Vector2(60,300f-i*120f+yOffset), 100f) {cosmetic = true, value=replacementStringToReplaceWith[i].Value, description = ""};
-                    replacementBoolCaseSensitiveInputtables[i] = new OpCheckBox(replacementBoolCaseSensitive[i], new Vector2(300,330f-i*120f+yOffset)) {cosmetic = true, description = ""};
+                    replacementStringToBeReplacedInputtables[i] = new OpTextBox(replacementStringToBeReplaced[i], new Vector2(50,330f-i*120f+yOffset), 100f) {cosmetic = false, value=replacementStringToBeReplaced[i].Value, description = ""};
+                    replacementStringToReplaceWithInputtables[i] = new OpTextBox(replacementStringToReplaceWith[i], new Vector2(50,300f-i*120f+yOffset), 100f) {cosmetic = false, value=replacementStringToReplaceWith[i].Value, description = ""};
+                    replacementBoolCaseSensitiveInputtables[i] = new OpCheckBox(replacementBoolCaseSensitive[i], new Vector2(270,330f-i*120f+yOffset)) {cosmetic = false, description = ""};
                     replacementBoolCaseSensitiveInputtables[i].SetValueBool(replacementBoolCaseSensitive[i].Value);
-                    replacementBoolStopReplaceAfterInputtables[i] = new OpCheckBox(replacementBoolStopReplaceAfter[i], new Vector2(300,300f-i*120f+yOffset)) {cosmetic = true, description = ""};
+                    replacementBoolStopReplaceAfterInputtables[i] = new OpCheckBox(replacementBoolStopReplaceAfter[i], new Vector2(270,300f-i*120f+yOffset)) {cosmetic = false, description = ""};
                     replacementBoolStopReplaceAfterInputtables[i].SetValueBool(replacementBoolStopReplaceAfter[i].Value);
                     myOpScrollBox.AddItems([
                         new OpRect(new Vector2(40f, 280f-i*120f+yOffset), new Vector2(370f, 100f)),
@@ -431,8 +434,8 @@ namespace TextReplacementTool
                         new OpLabel(60f, 350f-i*120f+yOffset, "(GUID: "+replacementStringFunnyIDNumber[i].Value+")"),
                         new OpLabel(155,330f-i*120f+yOffset, "Text to be replaced"),
                         new OpLabel(155,300f-i*120f+yOffset, "Text to replace with"),
-                        new OpLabel(330,330f-i*120f+yOffset, "Case Sensitive"),
-                        new OpLabel(330,300f-i*120f+yOffset, "Stop replacement\nafter this"),
+                        new OpLabel(300,330f-i*120f+yOffset, "Case Sensitive"),
+                        new OpLabel(300,300f-i*120f+yOffset, "Stop replacement\nafter this"),
                         replacementStringToBeReplacedInputtables[i],
                         replacementStringToReplaceWithInputtables[i],
                         replacementBoolCaseSensitiveInputtables[i],
@@ -490,8 +493,9 @@ namespace TextReplacementTool
                 {
                     myOpScrollBox.SetContentSize((replacementCount.Value < 32 ? 80f : 20f)+120f*(replacementCount.Value),false);
                 }
-
                 wasButtonPressed = (whichButtonTypePressed != -1);
+                _SaveConfigFile();
+                
                 
                 // ok this should stop the constant updating every frame
                 shouldUpdate = false;
