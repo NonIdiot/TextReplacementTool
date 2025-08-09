@@ -101,10 +101,10 @@ namespace TextReplacementTool
                     //Logger.Log(LogLevel.Info, "mude "+TextReplacementToolConfig.replacementStringToBeReplaced.Length);
                     string noobert = Regex.Replace(myString, TextReplacementToolConfig.replacementStringToBeReplaced[i].Value, TextReplacementToolConfig.replacementStringToReplaceWith[i].Value, ((!TextReplacementToolConfig.caseSensitiveOverride.Value && TextReplacementToolConfig.replacementBoolCaseSensitive[i].Value) ? RegexOptions.None : RegexOptions.IgnoreCase));
                     //Logger.Log(LogLevel.Info, "flude");
-                    if (stroin(noobert) != stroin(myString) && myString.ToCharArray().Length > 1)
+                    if (stroin(noobert) != stroin(myString) && TextReplacementToolConfig.replacementStringToBeReplaced[i].Value.ToCharArray().Length > 1)
                     {
                         myString = noobert;
-                        if (TextReplacementToolConfig.replacementBoolStopReplaceAfter[i].Value)
+                        if (TextReplacementToolConfig.oneReplacementPerText.Value || TextReplacementToolConfig.replacementBoolStopReplaceAfter[i].Value)
                         {
                             break;
                         }
