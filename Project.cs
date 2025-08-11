@@ -450,11 +450,11 @@ namespace TextReplacementTool
                         replacementBoolCaseSensitiveInputtables[i].Unload();
                         replacementBoolStopReplaceAfterInputtables[i].Unload();
                     }
-                    replacementStringToBeReplacedInputtables[i] = new OpTextBox(replacementStringToBeReplaced[i], new Vector2(50,330f-i*120f+yOffset), 100f) {cosmetic = false, value=replacementStringToBeReplaced[i].Value, description = ""};
-                    replacementStringToReplaceWithInputtables[i] = new OpTextBox(replacementStringToReplaceWith[i], new Vector2(50,300f-i*120f+yOffset), 100f) {cosmetic = false, value=replacementStringToReplaceWith[i].Value, description = ""};
-                    replacementBoolCaseSensitiveInputtables[i] = new OpCheckBox(replacementBoolCaseSensitive[i], new Vector2(270,330f-i*120f+yOffset)) {cosmetic = false, description = ""};
+                    replacementStringToBeReplacedInputtables[i] = new OpTextBox(replacementStringToBeReplaced[i], new Vector2(165,320f-i*120f+yOffset), 240f) {cosmetic = false, maxLength = 290, value=replacementStringToBeReplaced[i].Value, description = ""};
+                    replacementStringToReplaceWithInputtables[i] = new OpTextBox(replacementStringToReplaceWith[i], new Vector2(165,290f-i*120f+yOffset), 240f) {cosmetic = false, maxLength = 290, value=replacementStringToReplaceWith[i].Value, description = ""};
+                    replacementBoolCaseSensitiveInputtables[i] = new OpCheckBox(replacementBoolCaseSensitive[i], new Vector2(160,350f-i*120f+yOffset)) {cosmetic = false, description = ""};
                     replacementBoolCaseSensitiveInputtables[i].SetValueBool(replacementBoolCaseSensitive[i].Value);
-                    replacementBoolStopReplaceAfterInputtables[i] = new OpCheckBox(replacementBoolStopReplaceAfter[i], new Vector2(270,300f-i*120f+yOffset)) {cosmetic = false, description = ""};
+                    replacementBoolStopReplaceAfterInputtables[i] = new OpCheckBox(replacementBoolStopReplaceAfter[i], new Vector2(270,350f-i*120f+yOffset)) {cosmetic = false, description = ""};
                     replacementBoolStopReplaceAfterInputtables[i].SetValueBool(replacementBoolStopReplaceAfter[i].Value);
                     myOpScrollBox.AddItems([
                         new OpRect(new Vector2(40f, 280f-i*120f+yOffset), new Vector2(370f, 100f)),
@@ -465,10 +465,10 @@ namespace TextReplacementTool
                         "\nCase Sensitive: "+replacementBoolCaseSensitive[i].Value+
                         "\nStop Replace After: "+replacementBoolStopReplaceAfter[i].Value),*/
                         new OpLabel(60f, 350f-i*120f+yOffset, "(GUID: "+replacementStringFunnyIDNumber[i].Value+")"),
-                        new OpLabel(155,330f-i*120f+yOffset, "Text to be replaced"),
-                        new OpLabel(155,300f-i*120f+yOffset, "Text to replace with"),
-                        new OpLabel(300,330f-i*120f+yOffset, "Case Sensitive"),
-                        new OpLabel(300,300f-i*120f+yOffset, "Stop replacement\nafter this"),
+                        new OpLabel(50,325f-i*120f+yOffset, "Text to be replaced"),
+                        new OpLabel(50,295f-i*120f+yOffset, "Text to replace with"),
+                        new OpLabel(190,350f-i*120f+yOffset, "Case Sensitive"),
+                        new OpLabel(300,350f-i*120f+yOffset, "Stop replacement\nafter this"),
                         replacementStringToBeReplacedInputtables[i],
                         replacementStringToReplaceWithInputtables[i],
                         replacementBoolCaseSensitiveInputtables[i],
