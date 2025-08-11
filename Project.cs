@@ -35,7 +35,19 @@ using Random = UnityEngine.Random;
 // ReSharper disable once CheckNamespace
 namespace TextReplacementTool
 {
-    [BepInPlugin(MOD_ID, "Text Replacement Tool", "1.0.0")]
+    public static class GeneralCWT
+    {
+        static ConditionalWeakTable<SimpleButton, Data> table = new ConditionalWeakTable<SimpleButton, Data>();
+        public static Data GetCustomData(this SimpleButton self) => table.GetOrCreateValue(self);
+
+        public class Data
+        {
+            // stored simplebutton stuff
+            public string origMessage = "";
+        }
+    }
+    
+    [BepInPlugin(MOD_ID, "Text Replacement Tool", "1.0.1")]
     internal class Plugin : BaseUnityPlugin
     {
         public const string MOD_ID = "nassoc.textreplacementtool";
@@ -65,6 +77,7 @@ namespace TextReplacementTool
                     On.RainWorld.OnModsInit += RainWorldOnModsInitHook;
                     
                     On.InGameTranslator.Translate += TranslateDeez;
+                    On.Menu.SimpleButton.GrafUpdate += TranslateDaButton;
                 }
 
                 weInitializedYet = true;
@@ -89,12 +102,12 @@ namespace TextReplacementTool
             }
         }
 
-        private string TranslateDeez(On.InGameTranslator.orig_Translate orig, InGameTranslator self, string s)
+        public string StringInator(string myString)
         {
-            string myString = orig(self, s);
+            
             if (configInitializedYet && TextReplacementToolConfig.Instance != null && TextReplacementToolConfig.replacementCount != null)
             {
-                Logger.Log(LogLevel.Info, "dude");
+                //Logger.Log(LogLevel.Info, "dude");
                 for (int i = 0; i < Math.Min(TextReplacementToolConfig.replacementCount.Value,TextReplacementToolConfig.replacementStringToBeReplaced.Length);i++)
                 {
                     //Logger.Log(LogLevel.Info, "jude "+TextReplacementToolConfig.replacementCount.Value);
@@ -119,6 +132,26 @@ namespace TextReplacementTool
             }*/
             return myString;
         }
+
+        private string TranslateDeez(On.InGameTranslator.orig_Translate orig, InGameTranslator self, string s)
+        {
+            string myString = orig(self, s);
+            
+            return StringInator(myString);
+        }
+
+        private void TranslateDaButton(On.Menu.SimpleButton.orig_GrafUpdate orig, SimpleButton self, float timeStacker)
+        {
+            if (replaceableSignals.Contains(stroin(self.signalText)) && self.GetCustomData().origMessage == "")
+            {
+                self.GetCustomData().origMessage = self.menuLabel.text+"";
+                self.menuLabel.text = StringInator(self.menuLabel.text);
+            }
+            orig(self,timeStacker);
+        }
+        
+        // MARKER: Lists n Stuff
+        public string[] replaceableSignals = ["GETFANCY"];
 
         // MARKER: Utils
         private void Log(object text)
@@ -208,7 +241,7 @@ namespace TextReplacementTool
             //evilOpSlider1 = new OpSlider(evilDebugNumber1, new Vector2(30f,10f),50);// {mousewheelTick = 1, description = "debug one"};
             //evilOpSlider2 = new OpSlider(evilDebugNumber2, new Vector2(90f,10f),50) {mousewheelTick = 20, description = "debug two"};
 
-            Plugin.Log(LogLevel.Info, "aaa");
+            //Plugin.Log(LogLevel.Info, "aaa");
             Tabs[0].AddItems([
                 new OpLabel(30f, 560f, "Text Replacement Tool Config - Main Page", true),
                 new OpLabel(30f, 520f, "This mod allows you to use the below Remix interface\nto replace any \"translatable\" text in the game."),
@@ -233,18 +266,18 @@ namespace TextReplacementTool
                     //replacementStringToBeReplaced=replacementStringToBeReplaced.AddToArray(Instance.config.Bind("replacementStringToBeReplaced_0","11"));
                     //replacementStringToBeReplaced=replacementStringToBeReplaced.AddToArray(Instance.config.Bind("replacementStringToBeReplaced_1","11"));
                     //Plugin.Log(LogLevel.Info, "ccc "+i);
-                    replacementStringToBeReplaced=replacementStringToBeReplaced.AddToArray(Instance.config.Bind("replacementStringToBeReplaced_"+i.ToString(),"toReplace"));
-                    Plugin.Log(LogLevel.Info, "ddd1 "+i);
-                    replacementStringToReplaceWith=replacementStringToReplaceWith.AddToArray(Instance.config.Bind("replacementStringToReplaceWith_"+i.ToString(),"replacedText"));
+                    replacementStringToBeReplaced=replacementStringToBeReplaced.AddToArray(Instance.config.Bind("replacementStringToBeReplaced_"+i.ToString(),"toReplace "));
+                    //Plugin.Log(LogLevel.Info, "ddd1 "+i);
+                    replacementStringToReplaceWith=replacementStringToReplaceWith.AddToArray(Instance.config.Bind("replacementStringToReplaceWith_"+i.ToString(),"replacedText "));
                     //Plugin.Log(LogLevel.Info, "ddd2 "+i);
                     replacementBoolCaseSensitive=replacementBoolCaseSensitive.AddToArray(Instance.config.Bind("replacementBoolCaseSensitive_"+i.ToString(),false));
                     //Plugin.Log(LogLevel.Info, "ddd3 "+i);
                     replacementBoolStopReplaceAfter=replacementBoolStopReplaceAfter.AddToArray(Instance.config.Bind("replacementBoolStopReplaceAfter_"+i.ToString(),false));
                     //Plugin.Log(LogLevel.Info, "ddd4 "+i);
                     replacementStringFunnyIDNumber=replacementStringFunnyIDNumber.AddToArray(Instance.config.Bind("replacementStringFunnyIDNumber_"+i.ToString(),"0"));
-                    Plugin.Log(LogLevel.Info, "ddd4 "+i);
-                    Plugin.Log(LogLevel.Info, "aag "+replacementStringToBeReplaced[replacementStringToBeReplaced.Length-1].key);
-                    Plugin.Log(LogLevel.Info, "awg "+replacementStringFunnyIDNumber[replacementStringFunnyIDNumber.Length-1].key);
+                    //Plugin.Log(LogLevel.Info, "ddd4 "+i);
+                    //Plugin.Log(LogLevel.Info, "aag "+replacementStringToBeReplaced[replacementStringToBeReplaced.Length-1].key);
+                    //Plugin.Log(LogLevel.Info, "awg "+replacementStringFunnyIDNumber[replacementStringFunnyIDNumber.Length-1].key);
                 }
                 replacementStringFunnyIDNumber=replacementStringFunnyIDNumber.AddToArray(Instance.config.Bind("replacementStringFunnyIDNumber_32","0"));
                 Plugin.configInitializedYet = true;
@@ -345,10 +378,10 @@ namespace TextReplacementTool
             {
                 //Plugin.Log(LogLevel.Info, "fff "+myOpScrollBox.items.Count);
                 //Plugin.Log(LogLevel.Info, "ddd "+myOpRects.Length);
-                Plugin.Log(LogLevel.Info, "there's a "+replacementCount.Value);
+                //Plugin.Log(LogLevel.Info, "there's a "+replacementCount.Value);
                 for (int i = 0; i < replacementCount.Value; i++)
                 {
-                    Plugin.Log(LogLevel.Info, "janue a " + replacementStringFunnyIDNumber[i].Value);
+                    //Plugin.Log(LogLevel.Info, "janue a " + replacementStringFunnyIDNumber[i].Value);
                 }
                 /*
                 for (int i = 0; i < myOpRects.Length; i++)
@@ -405,7 +438,7 @@ namespace TextReplacementTool
                     };
                     butoneDelete.OnClick += delegate(UIfocusable _)
                     {
-                        Plugin.Log(LogLevel.Info, "Button "+(i1+0)+" Pressed!");
+                        Plugin.Log(LogLevel.Info, "[TextReplacementTool] Button "+(i1+0)+" Pressed!");
                         whichButtonTypePressed = 2;
                         whereButtonPressed = i1+0;
                     };
