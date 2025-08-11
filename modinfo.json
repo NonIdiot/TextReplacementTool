@@ -1,7 +1,7 @@
 {
 	"id": "nassoc.textreplacementtool",
 	"name": "Text Replacement Tool",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"hide_version": false,
 	"authors": "NonIdiot",
 	"description": "[b]Text Replacement Tool[/b] is a mod that allows you to replace most text in the game using the simple, easy-to-use Remix menu!\n\n[b]NOTE: You do have to open the Remix menu after the game opens for changes to actually start applying.[/b]\n\nSome example use cases:\n- Ever wanted to play your OC in the game (without tediously modding them in) with the help of Dress My Slugcat, but all the menus and dialogue still refer to them as their vanilla name? Here's the fix!\n- Always wanted to give a vanilla, dlc, or modded slugcat a nickname, but no mods out there allowed you to rename them? Get ready for a solution!\n- Do you just so happen to hate a specific word in particular? Boom, gone!\n- Felt like a good ol' sh*tpost would be funny to make by replacing certain text, but didn't feel like messing around with the language files? Here's your triple affirmative!\n\nFeatures:\n- Text Replacement Config\n- Case-sensitive toggles and other things\n- Being able to replace text multiple times\n- Up to 32 replaced strings!\n- Compatibility with a decent amount of mods (due to how text is translated)\n- De-hard-coded compatibility with Dress My Slugcat\n\nComing Soon:\n- Making the amount of text you can put into the Remix menu's textboxes a larger amount\n- Dating Simulator compatibility (hopefully in a way that doesn't break Dating Sim Utils)\n- Non-translated text compatibility (for things like Remix menus, some buttons, or certain hard-coded text)\n- More than 32 replaced strings? Maybe?",

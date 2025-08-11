@@ -47,7 +47,7 @@ namespace TextReplacementTool
         }
     }
     
-    [BepInPlugin(MOD_ID, "Text Replacement Tool", "1.0.1")]
+    [BepInPlugin(MOD_ID, "Text Replacement Tool", "1.0.2")]
     internal class Plugin : BaseUnityPlugin
     {
         public const string MOD_ID = "nassoc.textreplacementtool";
